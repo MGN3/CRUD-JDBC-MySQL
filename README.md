@@ -1,2 +1,2 @@
 # CRUD-JDBC-MySQL
-CRUD functionalities in a MySQL database.
+CRUD functionalities using Java and MySQL.
