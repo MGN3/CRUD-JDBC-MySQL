@@ -5,7 +5,8 @@ import user.GetData;
 import utilities.Utilities;
 
 /**
- * @description This class contains the methods that creates a SQL statement for each CRUD functionality.
+ * @description This class contains the methods that creates a SQL statement for
+ *              each CRUD functionality.
  * @author Marcelino Gil Nombela
  * @version 1.0
  * @since 08/05/2023
@@ -20,11 +21,17 @@ public class SqlTransform {
 	 * @param newWeb a WebPage object.
 	 * @return sql The SQL string.
 	 */
+
 	public static String webToSQL(WebPage newWeb) {
 		String sql;
-		sql = "INSERT INTO webpage (webName, url, budget) VALUES (" + "'" + newWeb.getWebName() + "', " + "'"
-				+ newWeb.getUrl() + "', " + newWeb.getBudget() + ")";
+		sql = null;
 
+		try {
+			sql = "INSERT INTO webpage (webName, url, budget) VALUES (" + "'" + newWeb.getWebName() + "', " + "'"
+					+ newWeb.getUrl() + "', " + newWeb.getBudget() + ")";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return sql;
 	}
 
@@ -38,10 +45,15 @@ public class SqlTransform {
 	 */
 	public static String techToSQL(Technology newTech) {
 		String sql;
-		sql = "INSERT INTO technology (techName, techType, purpose, releaseYear, license) VALUES (" + "'"
-				+ newTech.getTechName() + "', " + "'" + newTech.getTechType() + "', " + "'" + newTech.getPurpose()
-				+ "', " + newTech.getReleaseYear() + ", " + "'" + newTech.getLicense() + "'" + ")";
+		sql = null;
+		try {
 
+			sql = "INSERT INTO technology (techName, techType, purpose, releaseYear, license) VALUES (" + "'"
+					+ newTech.getTechName() + "', " + "'" + newTech.getTechType() + "', " + "'" + newTech.getPurpose()
+					+ "', " + newTech.getReleaseYear() + ", " + "'" + newTech.getLicense() + "'" + ")";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return sql;
 	}
 
@@ -51,18 +63,22 @@ public class SqlTransform {
 	 * </ul>
 	 *
 	 * @param newWeb a WebPage object.
-	 * @param id the id of the row to be updated
+	 * @param id     the id of the row to be updated
 	 * @return sql The SQL string.
 	 */
 	public static String updateWeb(WebPage newWeb, int id) {
 		String sql;
+		sql = null;
+		try {
+			if (id >= 0) {
+				sql = "UPDATE practica2programacion.website SET webName = '" + newWeb.getWebName() + "', url = '"
+						+ newWeb.getUrl() + "', budget = " + newWeb.getBudget() + " WHERE website.webid = " + id + ";";
 
-		if (id >= 0) {
-			sql = "UPDATE practica2programacion.website SET webName = '" + newWeb.getWebName() + "', url = '"
-					+ newWeb.getUrl() + "', budget = " + newWeb.getBudget() + " WHERE website.webid = " + id + ";";
-
-		} else {
-			sql = "";
+			} else {
+				sql = "";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return sql;
 	}
@@ -73,22 +89,28 @@ public class SqlTransform {
 	 * </ul>
 	 *
 	 * @param newTech a Technology object.
-	 * @param id The id of the row to be updated
+	 * @param id      The id of the row to be updated
 	 * @return sql The SQL string.
 	 */
 	public static String updateTech(Technology newTech, int id) {
 		String sql;
-		sql = "UPDATE practica2programacion.technology SET techName = '" + newTech.getTechName() + "', techType = '"
-				+ newTech.getTechType() + "', purpose = '" + newTech.getPurpose() + "', releaseYear = "
-				+ newTech.getReleaseYear() + ", license = '" + newTech.getLicense() + "' WHERE technology.techid = "
-				+ id + ";";
+		sql = null;
 
+		try {
+			sql = "UPDATE practica2programacion.technology SET techName = '" + newTech.getTechName() + "', techType = '"
+					+ newTech.getTechType() + "', purpose = '" + newTech.getPurpose() + "', releaseYear = "
+					+ newTech.getReleaseYear() + ", license = '" + newTech.getLicense() + "' WHERE technology.techid = "
+					+ id + ";";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return sql;
 	}
 
 	/**
 	 * <ul>
-	 * <li>This function receives the id of the object that will be removed in the website table.
+	 * <li>This function receives the id of the object that will be removed in the
+	 * website table.
 	 * </ul>
 	 *
 	 * @param id The id of the row to be removed
@@ -96,15 +118,20 @@ public class SqlTransform {
 	 */
 	public static String removeWeb(int id) {
 		String sql;
+		sql = null;
 
-		sql = "DELETE FROM practica2programacion.website WHERE website.webid = " + id + ";";
-
+		try {
+			sql = "DELETE FROM practica2programacion.website WHERE website.webid = " + id + ";";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return sql;
 	}
 
 	/**
 	 * <ul>
-	 * <li>This function receives the id of the object that will be removed in the Technology table.
+	 * <li>This function receives the id of the object that will be removed in the
+	 * Technology table.
 	 * </ul>
 	 *
 	 * @param id The id of the row to be removed
@@ -112,7 +139,14 @@ public class SqlTransform {
 	 */
 	public static String removeTech(int id) {
 		String sql;
-		sql = "DELETE FROM practica2programacion.technology WHERE technology.techid = " + id + ";";
+		sql = null;
+
+		try {
+			sql = "DELETE FROM practica2programacion.technology WHERE technology.techid = " + id + ";";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return sql;
 	}
 
