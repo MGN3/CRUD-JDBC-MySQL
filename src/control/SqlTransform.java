@@ -4,9 +4,22 @@ import data.DataBaseInjection;
 import user.GetData;
 import utilities.Utilities;
 
+/**
+ * @description This class contains the methods that creates a SQL statement for each CRUD functionality.
+ * @author Marcelino Gil Nombela
+ * @version 1.0
+ * @since 08/05/2023
+ */
 public class SqlTransform {
 
-	// Posibilidad de hacer métodos no estáticos, mencionado en clase.
+	/**
+	 * <ul>
+	 * <li>This function receives the object and creates a SQL string with the data.
+	 * </ul>
+	 *
+	 * @param newWeb a WebPage object.
+	 * @return sql The SQL string.
+	 */
 	public static String webToSQL(WebPage newWeb) {
 		String sql;
 		sql = "INSERT INTO webpage (webName, url, budget) VALUES (" + "'" + newWeb.getWebName() + "', " + "'"
@@ -15,6 +28,14 @@ public class SqlTransform {
 		return sql;
 	}
 
+	/**
+	 * <ul>
+	 * <li>This function receives the object and creates a SQL string with the data.
+	 * </ul>
+	 *
+	 * @param newTech a Technology object.
+	 * @return sql The SQL string.
+	 */
 	public static String techToSQL(Technology newTech) {
 		String sql;
 		sql = "INSERT INTO technology (techName, techType, purpose, releaseYear, license) VALUES (" + "'"
@@ -24,6 +45,15 @@ public class SqlTransform {
 		return sql;
 	}
 
+	/**
+	 * <ul>
+	 * <li>This function receives the object and creates a SQL string with the data.
+	 * </ul>
+	 *
+	 * @param newWeb a WebPage object.
+	 * @param id the id of the row to be updated
+	 * @return sql The SQL string.
+	 */
 	public static String updateWeb(WebPage newWeb, int id) {
 		String sql;
 
@@ -37,6 +67,15 @@ public class SqlTransform {
 		return sql;
 	}
 
+	/**
+	 * <ul>
+	 * <li>This function receives the object and creates a SQL string with the data.
+	 * </ul>
+	 *
+	 * @param newTech a Technology object.
+	 * @param id The id of the row to be updated
+	 * @return sql The SQL string.
+	 */
 	public static String updateTech(Technology newTech, int id) {
 		String sql;
 		sql = "UPDATE practica2programacion.technology SET techName = '" + newTech.getTechName() + "', techType = '"
@@ -47,6 +86,14 @@ public class SqlTransform {
 		return sql;
 	}
 
+	/**
+	 * <ul>
+	 * <li>This function receives the id of the object that will be removed in the website table.
+	 * </ul>
+	 *
+	 * @param id The id of the row to be removed
+	 * @return sql The SQL string.
+	 */
 	public static String removeWeb(int id) {
 		String sql;
 
@@ -55,6 +102,14 @@ public class SqlTransform {
 		return sql;
 	}
 
+	/**
+	 * <ul>
+	 * <li>This function receives the id of the object that will be removed in the Technology table.
+	 * </ul>
+	 *
+	 * @param id The id of the row to be removed
+	 * @return sql The SQL string.
+	 */
 	public static String removeTech(int id) {
 		String sql;
 		sql = "DELETE FROM practica2programacion.technology WHERE technology.techid = " + id + ";";
