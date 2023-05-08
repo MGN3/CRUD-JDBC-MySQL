@@ -7,19 +7,18 @@ import utilities.Utilities;
 public class Controller {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
+		// Aux object
 		WebPage web;
+
+		// Aux object
 		Technology tech;
+
+		// Aux sql statement
 		String sql;
-		// web = GetData.newWeb();
 
-		// Technology tech;
-		// tech=GetData.newTech();
-
-		// String sql = SqlTransform.webToSQL(web);
-		// String sql2=SqlTransform.techToSQL(tech);
-		//DataBaseInjection.querySQL();
+		// Aux id for SQL rows
+		int id;
 
 		// Selector for the main menu.
 		int mainMenuChoice;
@@ -49,7 +48,7 @@ public class Controller {
 
 				// Request and return the desired option
 				menuChoice = Utilities.getIntBetween(1, 4,
-						"Press '1' to add a new web. \nPress '2' to add a new tech. \nPress '3' Show and add premade Techs. \nPress '4' to exit submenu.");
+						"Press '1' to add a new web. \nPress '2' to add a new tech. \nPress '3' to exit submenu.");
 
 				switch (menuChoice) {
 
@@ -58,7 +57,7 @@ public class Controller {
 					web = GetData.newWeb();
 					sql = SqlTransform.webToSQL(web);
 					DataBaseInjection.executeSQL(sql);
-					
+
 					break;
 
 				case 2:
@@ -66,10 +65,10 @@ public class Controller {
 					tech = GetData.newTech();
 					sql = SqlTransform.techToSQL(tech);
 					DataBaseInjection.executeSQL(sql);
-					
+
 					break;
 
-				case 4:
+				case 3:
 					// Exits sub menu
 					break;
 
@@ -90,34 +89,25 @@ public class Controller {
 
 				// Request and return the desired option
 				menuChoice = Utilities.getIntBetween(1, 5,
-						"Press '1' to find the first match. \nPress '2' to find all the matches. \nPress '3' to show all the Web data. \nPress '4' to search by category. \\nPress '5' to exit submenu");
+						"Press '1' to show all the data. \nPress '2' to find a web. \nPress '3' to find a technology. \nPress '4' to exit submenu");
 				switch (menuChoice) {
 
 				case 1:
-					// Shows the first 
+					// Shows all the data inside a VIEW made with joins.
 					DataBaseInjection.querySQL();
 					break;
 
 				case 2:
-					// Shows all the matches found.
-					DataBaseInjection.querySQL("website", "webName");
+					// Shows the first match for the data requested in the table website
+					DataBaseInjection.querySQL("website", GetData.webField());
 					break;
 
 				case 3:
-					// Call to predefined toString method for the main WebPage object
-
+					// Shows the first match for the data requested int he table Technology
+					DataBaseInjection.querySQL("technology", GetData.techField());
 					break;
 
 				case 4:
-					/*
-					 * Same method but applying overload, in this case, the parameters are the data
-					 * request and the category/attribute to fetch the requested data. The
-					 * output/return from findFirstMatch is not needed so it wont be collected.
-					 */
-
-					break;
-
-				case 5:
 					// Exits sub menu
 					break;
 
@@ -138,27 +128,31 @@ public class Controller {
 
 				// Requests and returns the desired option.
 				menuChoice = Utilities.getIntBetween(1, 3,
-						"Press '1' to update a Technology. \nPress '2' to update a specific data of the Technology. \nPress '3' to exit submenu.");
+						"Press '1' to update a web. \nPress '2' to update a technology. \nPress '3' to exit submenu.");
 				switch (menuChoice) {
 
 				case 1:
-					// To overwrite Technology's attributes where the first match is found.
+					// Updates a row from website table.
+					id = DataBaseInjection.querySQL("website", GetData.webField());
 
-					/**
-					 * Calling the method with the same object that is going to be used as a
-					 * parameter seems wierd but it was an easier way to reuse the object method:
-					 * ".findFirstMatch()".
-					 */
-
+					// If no matches found the id will be -1 and therefore the update is discarded.
+					if (id >= 0) {
+						web = GetData.newWeb();
+						sql = SqlTransform.updateWeb(web, id);
+						DataBaseInjection.executeSQL(sql);
+					}
 					break;
 
 				case 2:
-					/*
-					 * This option changes a single attribute of the Technology where the data
-					 * requested has first been found.
-					 * 
-					 */
+					// Updates a row from technology table.
+					id = DataBaseInjection.querySQL("technology", GetData.techField());
 
+					// If no matches found the id will be -1 and therefore the update is discarded.
+					if (id >= 0) {
+						tech = GetData.newTech();
+						sql = SqlTransform.updateTech(tech, id);
+						DataBaseInjection.executeSQL(sql);
+					}
 					break;
 
 				case 3:
@@ -182,17 +176,25 @@ public class Controller {
 
 				// Request and return the desired option.
 				menuChoice = Utilities.getIntBetween(1, 3,
-						"Press '1' to remove the first match found. \nPress '2' to remove the entire list of Technologies. \nPress '3' to exit submenu.");
+						"Press '1' to remove a web. \nPress '2' to remove a Technology. \nPress '3' to exit submenu.");
 				switch (menuChoice) {
 
 				case 1:
-					// Removes a specific Technology out of the ArrayList.
-
+					// Removes a row from website table if data requested is found.
+					id = DataBaseInjection.querySQL("website", GetData.webField());
+					if (id >= 0) {
+						sql = SqlTransform.removeWeb(id);
+						DataBaseInjection.executeSQL(sql);
+					}
 					break;
 
 				case 2:
-					// Removes all the Technologies objects inside the ArrayList.
-
+					// Removes a row from technology table if data requested is found.
+					id = DataBaseInjection.querySQL("technology", GetData.techField());
+					if (id >= 0) {
+						sql = SqlTransform.removeTech(id);
+						DataBaseInjection.executeSQL(sql);
+					}
 					break;
 
 				case 3:
