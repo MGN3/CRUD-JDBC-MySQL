@@ -3,10 +3,11 @@ package utilities;
 import java.util.Scanner;
 
 /**
- * @description This class contains the methods in charge of updating the data.
+ * @description This class contains a variety of methods for different purpuse,
+ *              mainly collect data from console input.
  * @author Marcelino Gil Nombela
  * @author Professor Carlos Rufiangel (method "areNumbers")
- * @version 1.0
+ * @version 3.0
  * @since 14/02/2023
  */
 public class Utilities {
@@ -17,7 +18,7 @@ public class Utilities {
 	 * </ul>
 	 */
 	public static void mainMenu() {
-		System.out.println("\u001B[107m" + "\u001B[32m" + "+--Marcelino Gil Nombela CRUD ArrayList System--+");
+		System.out.println("\u001B[107m" + "\u001B[32m" + "+--Marcelino Gil Nombela CRUD MySQL--+");
 		System.out.print("\u001B[0m");
 		System.out.println("\u001B[32m" + "1-Create");
 		System.out.println("\u001B[32m" + "2-Find");
